@@ -218,7 +218,7 @@ function scene:createScene( event )
 		end
 
 		-- This is done to make sure that the messageListener is set up on both devices before we send any critical information
-		checkConnection = function()
+		checkConnection = function(event)
 			if connected == false then
 				storyboard.gn.request("sendMessage",
 				{
@@ -228,7 +228,7 @@ function scene:createScene( event )
 				})
 			else
 				sendMove()
-				timer.cancel(checkConnection)
+				timer.cancel(event.source)
 			end
 		end
 

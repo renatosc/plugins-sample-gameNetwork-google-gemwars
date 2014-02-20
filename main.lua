@@ -38,3 +38,10 @@ storyboard.gn.request("login",
 	userInitiated = false,
 	listener = setInvitationListener
 })
+
+if system.getInfo("environment") == "simulator" then
+    native.showAlert("Alert", "This Sample Code does not work on the Simulator.", { "OK" } )
+    print("This Sample Code does not work on the Simulator")
+    setInvitationListener()
+end
+

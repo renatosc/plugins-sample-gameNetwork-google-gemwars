@@ -1,6 +1,8 @@
 local storyboard = require( "storyboard" )
 local json = require( "json" )
 
+local useGraphics1Compatilibity = ( 1 == display.getDefault( "graphicsCompatibility" ) )
+
 local scene = storyboard.newScene()
  
 local bg, text1, text2, text3;
@@ -86,7 +88,12 @@ function scene:enterScene( event )
 		local target = event.target
 		
 		if event.phase == "began" then
+                    if useGraphics1Compatilibity then
 			target:setTextColor( 245, 127, 32 )
+                    else
+                        target:setFillColor( 245/255, 127/255, 32/255 )
+                    end
+                        
 		elseif event.phase == "ended" then
 			-- action
 			if target.tag == 1 then
@@ -162,7 +169,12 @@ function scene:enterScene( event )
 				end
 			end
 			-- reset the button color
-			target:setTextColor( 255, 255, 255 )
+                        if useGraphics1Compatilibity then
+                            target:setTextColor( 255, 255, 255 )
+                        else
+                            target:setFillColor( 255/255, 255/255, 255/255 )
+                        end
+                            
 		end
 	end
 	
@@ -173,30 +185,46 @@ function scene:enterScene( event )
 	local screenRealHeight = screenHeight / display.contentScaleY
 
 	local bg = display.newImage( storyboard.iSheet ,1)
-	bg:setReferencePoint( display.CenterReferencePoint )
+        if useGraphics1Compatilibity then
+            bg:setReferencePoint( display.CenterReferencePoint )        
+        end
+	
 	bg.x = display.contentWidth * 0.5
 	bg.y = display.contentHeight * 0.5
 	bg.xScale, bg.yScale = storyboard.globalScale, storyboard.globalScale
 	screenGroup:insert( bg )
 	
 	local logo = display.newImage( storyboard.iSheet, 6)
-	logo:setReferencePoint( display.CenterReferencePoint )
+        if useGraphics1Compatilibity then
+            logo:setReferencePoint( display.CenterReferencePoint )
+        end
 	logo.xScale, logo.yScale = storyboard.globalScale, storyboard.globalScale
 	logo.x = display.contentWidth * 0.5
 	logo.y = 120
 	screenGroup:insert( logo )
 	
 	local joinText = display.newText( screenGroup, "JOIN MATCH", display.contentWidth * 0.5, display.contentHeight - 270, "Futura-CondensedExtraBold", 30 )
-	joinText:setReferencePoint( display.CenterReferencePoint )
+        if useGraphics1Compatilibity then
+            joinText:setReferencePoint( display.CenterReferencePoint )
+            joinText:setTextColor( 255, 255, 255 )
+        else
+            joinText:setFillColor( 255/255, 255/255, 255/255 )
+        end
 	joinText.x = display.contentWidth * 0.5
-	joinText:setTextColor( 255, 255, 255 )
+        
+	
 	joinText:addEventListener( "touch", buttonPressed )
 	joinText.tag = 1
 	
 	local hostText = display.newText( screenGroup, "CREATE MATCH", display.contentWidth * 0.5, display.contentHeight - 200, "Futura-CondensedExtraBold", 30 )
-	hostText:setReferencePoint( display.CenterReferencePoint )
+        if useGraphics1Compatilibity then
+            hostText:setReferencePoint( display.CenterReferencePoint )
+            hostText:setTextColor( 255, 255, 255 )
+        else
+            hostText:setFillColor( 255/255, 255/255, 255/255 )
+        end
 	hostText.x = display.contentWidth * 0.5
-	hostText:setTextColor( 255, 255, 255 )
+	
 	hostText:addEventListener( "touch", buttonPressed )
 	hostText.tag = 2
 
@@ -207,9 +235,16 @@ function scene:enterScene( event )
 	end
 
 	loginText = display.newText( screenGroup, text, display.contentWidth * 0.5, display.contentHeight - 130, "Futura-CondensedExtraBold", 30 )
-	loginText:setReferencePoint( display.CenterReferencePoint )
+        if useGraphics1Compatilibity then
+            loginText:setReferencePoint( display.CenterReferencePoint )
+        end
 	loginText.x = display.contentWidth * 0.5
-	loginText:setTextColor( 255, 255, 255 )
+        if useGraphics1Compatilibity then
+            loginText:setTextColor( 255, 255, 255 )
+        else
+            loginText:setFillColor( 255/255, 255/255, 255/255 )
+        end
+            
 	loginText:addEventListener( "touch", buttonPressed )
 	loginText.tag = 3
 	
